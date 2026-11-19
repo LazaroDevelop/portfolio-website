@@ -36,7 +36,7 @@ import {
           [lead]="t().sections.projects.lead"
         />
         <a appButton variant="outline" appExternal [href]="githubUrl()" class="group shrink-0">
-          <img src="icons/github.svg" alt="" class="size-4" />
+          <img src="icons/github.svg" alt="" class="size-4 dark:invert" />
           {{ t().sections.projects.more }}
           <app-icon
             name="arrow-up-right"

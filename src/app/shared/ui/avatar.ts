@@ -10,7 +10,7 @@ export type AvatarSize = 'sm' | 'lg';
   template: `
     <picture
       class="block overflow-hidden rounded-full ring-1 ring-offset-2"
-      [class]="tone() === 'dark' ? 'ring-white/30 ring-offset-ink' : 'ring-line-strong ring-offset-canvas'"
+      [class]="tone() === 'dark' ? 'ring-on-ink/30 ring-offset-ink' : 'ring-line-strong ring-offset-canvas'"
     >
       @if (fallback()) {
         <source [srcset]="src()" type="image/webp" />

@@ -46,7 +46,7 @@ import {
         </p>
         <div class="mt-10 flex flex-wrap gap-3 animate-fade-up [animation-delay:320ms]">
           <a appButton appExternal [href]="p.github" class="group">
-            <img src="icons/github.svg" alt="" class="size-4 invert" />
+            <img src="icons/github.svg" alt="" class="size-4 invert dark:invert-0" />
             {{ t().hero.ctaGithub }}
             <app-icon
               name="arrow-up-right"
@@ -54,7 +54,7 @@ import {
             />
           </a>
           <a appButton variant="outline" appExternal [href]="p.linkedin">
-            <img src="icons/linkedin.svg" alt="" class="size-4" />
+            <img src="icons/linkedin.svg" alt="" class="size-4 dark:invert" />
             {{ t().hero.ctaLinkedin }}
           </a>
           <a appButton variant="outline" routerLink="/" fragment="projects" class="group">

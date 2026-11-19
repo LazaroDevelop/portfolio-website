@@ -7,11 +7,11 @@ const BASE =
   'border transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60';
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: 'bg-ink text-white border-ink hover:bg-ink-soft hover:border-control',
+  primary: 'bg-ink text-on-ink border-ink hover:bg-ink-soft hover:border-control',
   outline: 'bg-transparent text-ink border-line-strong hover:bg-surface hover:border-ink',
-  critical: 'bg-transparent text-accent border-accent hover:bg-accent hover:text-white',
-  /** For dark (ink) backgrounds. */
-  inverse: 'bg-white text-ink border-white hover:bg-well',
+  critical: 'bg-transparent text-accent border-accent hover:bg-accent hover:text-on-ink',
+  /** For inverse (ink) surfaces such as the header and the contact band. */
+  inverse: 'bg-on-ink text-ink border-on-ink hover:bg-well hover:border-well',
 };
 
 /** Applies DESIGN.md button styles to an `<a>` or `<button>`: `<a appButton variant="outline">`. */

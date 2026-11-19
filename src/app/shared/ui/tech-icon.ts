@@ -12,6 +12,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
       [width]="size()"
       [height]="size()"
       class="object-contain transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-115"
+      [class]="invertOnDark() ? 'dark:invert dark:hue-rotate-180' : ''"
       [style.width.px]="size()"
       [style.height.px]="size()"
       loading="lazy"
@@ -30,6 +31,8 @@ export class TechIconComponent {
   /** File name in public/icons without extension, e.g. `java-original`. */
   readonly icon = input.required<string>();
   readonly size = input(48);
+  /** Inverts the logo (keeping hues) on the dark theme, for black or dark-text logos. */
+  readonly invertOnDark = input(false);
   /** Smaller label, for the secondary tiles. */
   readonly compact = input(false);
   protected readonly src = computed(() => `icons/${this.icon()}.svg`);

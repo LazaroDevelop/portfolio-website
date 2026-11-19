@@ -49,7 +49,7 @@ import { IconComponent } from './icon';
           [href]="p.repoUrl"
           class="flex flex-1 items-center gap-2 px-6 py-4 text-ink transition-colors hover:bg-canvas md:px-8"
         >
-          <img src="icons/github.svg" alt="" class="size-4" />
+          <img src="icons/github.svg" alt="" class="size-4 dark:invert" />
           {{ t().sections.projects.repo }}
         </a>
         <a

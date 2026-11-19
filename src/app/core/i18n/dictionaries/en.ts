@@ -13,6 +13,8 @@ export const en: Dictionary = {
     certifications: 'Certifications',
     contact: 'Contact',
     language: 'Language',
+    themeDark: 'Switch to dark theme',
+    themeLight: 'Switch to light theme',
     skip: 'Skip to content',
   },
   hero: {
