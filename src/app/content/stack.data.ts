@@ -7,9 +7,9 @@ export const STACK: Stack = {
     { name: 'Apache Kafka', icon: 'apachekafka-original' },
     { name: 'Docker', icon: 'docker-original' },
     { name: 'AWS', icon: 'amazonwebservices-original' },
+    { name: 'PostgreSQL', icon: 'postgresql-original' },
   ],
   secondary: [
-    { name: 'PostgreSQL', icon: 'postgresql-original' },
     { name: 'Elasticsearch', icon: 'elasticsearch-original' },
     { name: 'Terraform', icon: 'terraform-original' },
     { name: 'Angular', icon: 'angular-original' },

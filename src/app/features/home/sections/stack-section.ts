@@ -25,7 +25,7 @@ import {
       />
 
       <ul
-        class="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-3 lg:grid-cols-5"
+        class="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-3 lg:grid-cols-6"
       >
         @for (tech of s.primary; track tech.name; let i = $index) {
           <li
