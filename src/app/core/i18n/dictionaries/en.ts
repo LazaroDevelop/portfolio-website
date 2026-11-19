@@ -39,6 +39,7 @@ export const en: Dictionary = {
       lead: 'Open-source code showing how I design services, integrations and infrastructure.',
       repo: 'Repository',
       caseStudy: 'View details',
+      featured: 'Featured',
       more: 'See all repositories',
     },
     certifications: {

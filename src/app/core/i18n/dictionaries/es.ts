@@ -38,6 +38,7 @@ export const es = {
       lead: 'Código abierto que muestra cómo diseño servicios, integraciones e infraestructura.',
       repo: 'Repositorio',
       caseStudy: 'Ver detalle',
+      featured: 'Destacado',
       more: 'Ver todos los repositorios',
     },
     certifications: {
