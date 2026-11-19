@@ -8,7 +8,10 @@ export type AvatarSize = 'sm' | 'lg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'relative inline-flex shrink-0' },
   template: `
-    <picture class="block overflow-hidden rounded-full ring-1 ring-line-strong ring-offset-2 ring-offset-canvas">
+    <picture
+      class="block overflow-hidden rounded-full ring-1 ring-offset-2"
+      [class]="tone() === 'dark' ? 'ring-white/30 ring-offset-ink' : 'ring-line-strong ring-offset-canvas'"
+    >
       @if (fallback()) {
         <source [srcset]="src()" type="image/webp" />
       }
@@ -26,10 +29,16 @@ export type AvatarSize = 'sm' | 'lg';
     </picture>
     @if (online()) {
       <span
-        class="absolute rounded-full border-2 border-surface bg-accent"
+        class="absolute flex"
         [class]="size() === 'lg' ? 'bottom-3 right-3 size-4' : 'bottom-0 right-0 size-2.5'"
         aria-hidden="true"
-      ></span>
+      >
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-50"></span>
+        <span
+          class="relative inline-flex size-full rounded-full border-2 bg-accent"
+          [class]="tone() === 'dark' ? 'border-ink' : 'border-surface'"
+        ></span>
+      </span>
     }
   `,
 })
@@ -40,5 +49,7 @@ export class AvatarComponent {
   readonly alt = input.required<string>();
   readonly size = input<AvatarSize>('sm');
   readonly online = input(false);
+  /** Background the avatar sits on; adjusts the ring offset and the dot border. */
+  readonly tone = input<'light' | 'dark'>('light');
   protected readonly px = computed(() => (this.size() === 'lg' ? 176 : 32));
 }
