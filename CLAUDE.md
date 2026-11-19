@@ -55,7 +55,7 @@ Use git flow (AVH). Run `git flow feature start <name>` before each piece of wor
 - shadows: `shadow-card` and `shadow-card-hover`
 - type utilities: `type-display`, `type-headline-*`, `type-body-*` and `type-label-*`
 - the `container-editorial` layout utility
-- `.network-bg`: the mask and light-blue glow for `app-network-bg` (shared/ui), an animated canvas network graph used behind the hero, the project header and the contact band. The parent needs `relative isolate overflow-hidden`. The graph pauses off-screen and draws one still frame under reduced motion.
+- `.network-bg`: the mask and light-blue glow for `app-network-bg` (shared/ui), an animated canvas network graph behind every home section and the project header. Its color is per section: green for Stack, yellow for Certifications, light blue for Contact and blue elsewhere. The parent needs `relative isolate overflow-hidden`. The graph pauses off-screen and draws one still frame under reduced motion.
 - `animate-fade-up`, `animate-float` and `animate-rocket`, plus the `.reveal` styles
 
 `prefers-reduced-motion` disables all motion.
