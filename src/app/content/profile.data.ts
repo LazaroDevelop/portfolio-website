@@ -3,6 +3,15 @@ import { Profile } from '../core/models';
 export const PROFILE: Profile = {
   name: 'Lazaro Noel Guerra Medina',
   initials: 'LG',
+  photo: {
+    src: 'images/profile-800.webp',
+    fallback: 'images/profile-800.jpg',
+    srcSmall: 'images/profile-160.webp',
+    alt: {
+      es: 'Lazaro Guerra sonriendo en la Plaza Independencia de Montevideo',
+      en: 'Lazaro Guerra smiling at Plaza Independencia in Montevideo',
+    },
+  },
   role: {
     es: 'Ingeniero Backend',
     en: 'Backend Engineer',

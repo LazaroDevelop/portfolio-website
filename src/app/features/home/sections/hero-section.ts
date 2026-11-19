@@ -45,6 +45,25 @@ import { BadgeComponent, ButtonDirective, ExternalLinkDirective } from '../../..
       </div>
 
       <aside class="lg:col-span-4 lg:self-end">
+        <figure class="relative mb-4 overflow-hidden rounded-sm border border-line bg-surface p-2 shadow-card">
+          <picture>
+            <source [srcset]="p.photo.src" type="image/webp" />
+            <img
+              [src]="p.photo.fallback"
+              [alt]="p.photo.alt | loc"
+              width="800"
+              height="800"
+              class="aspect-square w-full rounded-xs object-cover"
+              fetchpriority="high"
+            />
+          </picture>
+          <figcaption
+            class="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-2 rounded-xs bg-surface/90 px-3 py-2 backdrop-blur"
+          >
+            <span class="type-label-sm uppercase text-ink">{{ p.name }}</span>
+            <span class="type-label-sm uppercase text-subtle">MVD · UY</span>
+          </figcaption>
+        </figure>
         <dl class="grid grid-cols-2 overflow-hidden rounded-sm border border-line bg-surface shadow-card">
           @for (metric of p.metrics; track metric.value; let i = $index) {
             <div

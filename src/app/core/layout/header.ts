@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { ButtonDirective, ExternalLinkDirective } from '../../shared/ui';
+import { AvatarComponent, ButtonDirective, ExternalLinkDirective } from '../../shared/ui';
 import { CONTENT_REPOSITORY } from '../data';
 import { LanguageService } from '../i18n';
 import { Lang } from '../models';
@@ -10,7 +10,7 @@ type NavKey = 'stack' | 'experience' | 'projects' | 'certifications' | 'contact'
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, ButtonDirective, ExternalLinkDirective],
+  imports: [RouterLink, AvatarComponent, ButtonDirective, ExternalLinkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'sticky top-0 z-40 block border-b border-line bg-canvas/85 backdrop-blur-md' },
   template: `
@@ -23,12 +23,7 @@ type NavKey = 'stack' | 'experience' | 'projects' | 'certifications' | 'contact'
     @if (profile(); as profile) {
     <div class="container-editorial flex h-16 items-center justify-between gap-6">
       <a routerLink="/" class="flex items-center gap-3" [attr.aria-label]="profile.name">
-        <span
-          class="grid size-8 place-items-center rounded-xs bg-ink type-label-md font-bold text-white"
-          aria-hidden="true"
-        >
-          {{ profile.initials }}
-        </span>
+        <app-avatar [src]="profile.photo.srcSmall" alt="" [online]="true" />
         <span class="hidden type-headline-sm text-ink sm:inline">Lazaro Guerra</span>
       </a>
 

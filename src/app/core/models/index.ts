@@ -13,9 +13,20 @@ export interface Metric {
   label: Localized;
 }
 
+export interface Photo {
+  /** Large square image (hero). */
+  src: string;
+  /** JPEG fallback for `src`. */
+  fallback: string;
+  /** Small square image (header avatar). */
+  srcSmall: string;
+  alt: Localized;
+}
+
 export interface Profile {
   name: string;
   initials: string;
+  photo: Photo;
   role: Localized;
   headline: Localized;
   location: string;
