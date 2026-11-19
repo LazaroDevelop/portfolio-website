@@ -8,11 +8,13 @@ import {
   ProjectCardComponent,
   RevealDirective,
   SectionHeaderComponent,
+  NetworkBackgroundComponent,
 } from '../../../shared/ui';
 
 @Component({
   selector: 'app-projects-section',
   imports: [
+    NetworkBackgroundComponent,
     ButtonDirective,
     ExternalLinkDirective,
     IconComponent,
@@ -21,8 +23,9 @@ import {
     SectionHeaderComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block border-t border-line' },
+  host: { class: 'relative isolate block overflow-hidden border-t border-line' },
   template: `
+    <app-network-bg color="59, 130, 246" />
     <div class="container-editorial py-20 md:py-28">
       <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <app-section-header

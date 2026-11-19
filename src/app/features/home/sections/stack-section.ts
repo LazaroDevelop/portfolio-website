@@ -6,14 +6,18 @@ import {
   RevealDirective,
   SectionHeaderComponent,
   TechIconComponent,
+  NetworkBackgroundComponent,
 } from '../../../shared/ui';
 
 @Component({
   selector: 'app-stack-section',
-  imports: [LocalizePipe, BadgeComponent, RevealDirective, SectionHeaderComponent, TechIconComponent],
+  imports: [
+    NetworkBackgroundComponent,
+    LocalizePipe, BadgeComponent, RevealDirective, SectionHeaderComponent, TechIconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block border-t border-line' },
+  host: { class: 'relative isolate block overflow-hidden border-t border-line' },
   template: `
+    <app-network-bg color="22, 163, 74" />
     @let s = stack();
     <div class="container-editorial py-20 md:py-28">
       <app-section-header

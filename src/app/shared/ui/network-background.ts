@@ -4,6 +4,7 @@ import {
   DestroyRef,
   ElementRef,
   afterNextRender,
+  computed,
   inject,
   input,
   viewChild,
@@ -30,14 +31,19 @@ const LINK_DISTANCE = 110;
 @Component({
   selector: 'app-network-bg',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'network-bg pointer-events-none absolute inset-0 -z-10 block', 'aria-hidden': 'true' },
+  host: {
+    class: 'network-bg pointer-events-none absolute inset-0 -z-10 block',
+    'aria-hidden': 'true',
+    '[style.--net-rgb]': 'cssRgb()',
+  },
   template: `<canvas #canvas class="block size-full"></canvas>`,
 })
 export class NetworkBackgroundComponent {
-  /** RGB triple, e.g. `59, 130, 246`. */
+  /** RGB triple, e.g. `59, 130, 246` (blue) or `22, 163, 74` (green). Also tints the corner glow. */
   readonly color = input('59, 130, 246');
   /** Multiplier for the number of nodes. */
   readonly density = input(1);
+  protected readonly cssRgb = computed(() => this.color().replaceAll(',', ' '));
 
   private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
 
@@ -60,14 +66,14 @@ export class NetworkBackgroundComponent {
 
       const seed = () => {
         const count = Math.round(
-          Math.min(Math.max(((width * height) / 9000) * this.density(), 28), 150),
+          Math.min(Math.max(((width * height) / 8000) * this.density(), 30), 170),
         );
-        // Bias positions towards the top-left corner so the mesh is denser there.
+        // Slight bias towards the top-left corner: denser there, still reaching across the section.
         nodes = Array.from({ length: count }, () => {
           const hub = Math.random() < 0.08;
           return {
-            x: width * Math.pow(Math.random(), 1.5),
-            y: height * Math.pow(Math.random(), 1.5),
+            x: width * Math.pow(Math.random(), 1.15),
+            y: height * Math.pow(Math.random(), 1.15),
             vx: (Math.random() - 0.5) * 0.25,
             vy: (Math.random() - 0.5) * 0.25,
             r: hub ? 2.4 : 1 + Math.random() * 0.8,
