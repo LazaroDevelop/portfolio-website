@@ -21,7 +21,16 @@ npx ng test --watch=false --browsers=ChromeHeadless --include src/app/core/i18n/
 
 ## Git workflow
 
-Use git flow (AVH). Run `git flow feature start <name>` before each piece of work. Finish it with `git flow feature finish -k --no-ff <name>`. **Keep feature branches; never delete them.** `develop` is the integration branch and `main` is for releases, created with `git flow release start/finish -k <version>`. Releases are tagged without a `v` prefix (`1.0.0`).
+Use git flow (AVH). Run `git flow feature start <name>` before each piece of work. Finish it with `git flow feature finish -k --no-ff <name>`. **Keep feature branches; never delete them.** `develop` is the integration branch and `main` is for releases. Releases are tagged without a `v` prefix (`1.1.0`). Release branches are kept too.
+
+`git flow release start` refuses while an old `release/*` branch exists, so releases are done by hand with the same steps. Pushing `main` triggers the Pages deploy.
+
+```bash
+git checkout -b release/X.Y.Z develop && npm pkg set version=X.Y.Z && git commit -am "chore(release): X.Y.Z"
+git checkout main && git merge --no-ff --no-edit release/X.Y.Z && git tag -a X.Y.Z -m "Release X.Y.Z"
+git checkout develop && git merge --no-ff --no-edit X.Y.Z
+git push origin main develop release/X.Y.Z X.Y.Z
+```
 
 The remote is `origin` (github.com/LazaroDevelop/portfolio-website). This repo's git config pins `credential.https://github.com.username` to `LazaroDevelop`, so pushes don't ask which account to use. Push every branch, including features.
 
