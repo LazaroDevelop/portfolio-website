@@ -17,7 +17,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'relative isolate block overflow-hidden border-t border-line bg-surface' },
   template: `
-    <app-network-bg color="59, 130, 246" />
+    <app-network-bg color="234, 179, 8" />
     <div class="container-editorial py-20 md:py-28">
       <app-section-header
         index="04"
