@@ -31,6 +31,11 @@ Use git flow (AVH). Run `git flow feature start <name>` before each piece of wor
   - `LanguageService` holds the `lang` signal, persisted to localStorage, and keeps `<html lang>` in sync.
   - `t()` returns the typed UI dictionary. `dictionaries/es.ts` defines its shape and `en.ts` must match.
   - The `loc` pipe resolves `Localized` content and `monthYear` formats `YYYY-MM` dates. Both pipes are impure on purpose so they re-render when the language changes.
+- `core/contact`: delivers the contact form through the `CONTACT_GATEWAY` token.
+  - The implementation is `Web3FormsContactGateway`, which POSTs to Web3Forms. Web3Forms emails the inbox tied to the access key (the owner's Gmail).
+  - Set the key in `contact.config.ts`. It's public by design and safe to commit. While it's empty, the form shows a "not active yet" message and sends nothing.
+  - A future backend only needs a new gateway bound in `app.config.ts`.
+  - The form (`features/home/sections/contact-form.ts`) is reactive, validates its fields and has a `botcheck` honeypot.
 - `core/layout`: header (nav anchors and ES/EN toggle), footer, and `PageMetaService` (title and description per page and language).
 - `shared/ui`: presentational primitives with no data access:
   - the `appButton` directive (primary/outline/critical/inverse) and the `appExternal` directive (target=_blank + noopener)

@@ -4,7 +4,7 @@ export type ButtonVariant = 'primary' | 'outline' | 'critical' | 'inverse';
 
 const BASE =
   'inline-flex items-center justify-center gap-2 rounded-sm px-5 py-2.5 type-body-md font-medium ' +
-  'border transition-colors duration-200 cursor-pointer';
+  'border transition-colors duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60';
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary: 'bg-ink text-white border-ink hover:bg-ink-soft hover:border-control',
