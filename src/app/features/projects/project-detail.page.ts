@@ -10,6 +10,7 @@ import {
   ButtonDirective,
   ExternalLinkDirective,
   IconComponent,
+  NetworkBackgroundComponent,
   ProjectCardComponent,
 } from '../../shared/ui';
 
@@ -23,6 +24,7 @@ import {
     ButtonDirective,
     ExternalLinkDirective,
     IconComponent,
+    NetworkBackgroundComponent,
     ProjectCardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +32,8 @@ import {
     @if (state(); as s) {
       @if (s.project; as p) {
         <article>
-          <header class="bg-dots-accent overflow-hidden border-b border-line">
+          <header class="relative isolate overflow-hidden border-b border-line">
+            <app-network-bg />
             <div class="container-editorial py-12 md:py-20">
               <a
                 routerLink="/"

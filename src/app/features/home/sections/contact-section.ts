@@ -5,17 +5,26 @@ import {
   ButtonDirective,
   ExternalLinkDirective,
   IconComponent,
+  NetworkBackgroundComponent,
   RevealDirective,
 } from '../../../shared/ui';
 import { ContactFormComponent } from './contact-form';
 
 @Component({
   selector: 'app-contact-section',
-  imports: [ButtonDirective, ContactFormComponent, ExternalLinkDirective, IconComponent, RevealDirective],
+  imports: [
+    ButtonDirective,
+    ContactFormComponent,
+    ExternalLinkDirective,
+    IconComponent,
+    NetworkBackgroundComponent,
+    RevealDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'bg-dots-accent block overflow-hidden bg-ink text-white' },
+  host: { class: 'relative isolate block overflow-hidden bg-ink text-white' },
   template: `
     @let p = profile();
+    <app-network-bg color="147, 197, 253" />
     <div class="container-editorial grid gap-12 py-20 md:py-28 lg:grid-cols-12 lg:gap-10">
       <div appReveal class="lg:col-span-6 xl:col-span-7">
         <div class="flex items-center gap-3 type-label-md uppercase text-control">
