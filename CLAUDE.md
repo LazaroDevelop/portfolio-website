@@ -14,13 +14,27 @@ Requires Node ≥ 20.19 (Node 22 is installed). Node 26 is not supported by Angu
 npm start                 # ng serve on http://localhost:4200
 npm run build             # production build → dist/portfolio-website
 npm run lint              # angular-eslint
-npm run test:ci           # Karma + Jasmine, single run in ChromeHeadless
+npm run test:ci           # Karma + Jasmine, single run in ChromeHeadlessCI (--no-sandbox) + coverage
+npm run build:pages       # production build with base href /portfolio-website/ (GitHub Pages)
 npx ng test --watch=false --browsers=ChromeHeadless --include src/app/core/i18n/language.service.spec.ts   # one spec
 ```
 
 ## Git workflow
 
-Use git flow (AVH). Run `git flow feature start <name>` before each piece of work. Finish it with `git flow feature finish -k --no-ff <name>`. **Keep feature branches; never delete them.** `develop` is the integration branch and `main` is for releases.
+Use git flow (AVH). Run `git flow feature start <name>` before each piece of work. Finish it with `git flow feature finish -k --no-ff <name>`. **Keep feature branches; never delete them.** `develop` is the integration branch and `main` is for releases, created with `git flow release start/finish -k <version>`. Releases are tagged without a `v` prefix (`1.0.0`).
+
+The remote is `origin` (github.com/LazaroDevelop/portfolio-website). This repo's git config pins `credential.https://github.com.username` to `LazaroDevelop`, so pushes don't ask which account to use. Push every branch, including features.
+
+## CI/CD (`.github/workflows`)
+
+- `ci.yml` runs lint, `test:ci` and a production build on pushes to `develop`, `feature/**`, `release/**` and `hotfix/**`, and on PRs into `develop` and `main`.
+- `deploy-pages.yml` runs on every push to `main` (a git flow release or hotfix) and on manual dispatch. It runs the same checks, then:
+  - builds with `build:pages`;
+  - copies `index.html` to `404.html` (SPA fallback for deep links such as `/projects/<slug>`) and adds `.nojekyll`;
+  - deploys to https://lazarodevelop.github.io/portfolio-website/ with `actions/deploy-pages`.
+- The repository's Settings → Pages → Source must be **GitHub Actions**.
+
+Asset paths in templates are relative (`icons/…`, `images/…`) so they resolve against the base href. Keep it that way: a leading `/` breaks the Pages subpath.
 
 ## Architecture (`src/app`)
 
