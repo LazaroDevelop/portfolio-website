@@ -12,6 +12,8 @@ export const es = {
     certifications: 'Certificaciones',
     contact: 'Contacto',
     language: 'Idioma',
+    themeDark: 'Activar tema oscuro',
+    themeLight: 'Activar tema claro',
     skip: 'Saltar al contenido',
   },
   hero: {

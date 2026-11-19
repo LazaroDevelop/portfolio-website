@@ -81,6 +81,16 @@ Asset paths in templates are relative (`icons/…`, `images/…`) so they resolv
 - `.network-bg`: the mask and light-blue glow for `app-network-bg` (shared/ui), an animated canvas network graph behind every home section and the project header. Its color is per section: green for Stack, yellow for Certifications, light blue for Contact and blue elsewhere. The parent needs `relative isolate overflow-hidden`. The graph pauses off-screen and draws one still frame under reduced motion.
 - `animate-fade-up`, `animate-float` and `animate-rocket`, plus the `.reveal` styles
 
+**Light/dark theme.** `ThemeService` (`core/theme`) toggles `<html data-theme="dark">` from the header's sun/moon button. It also persists the choice to localStorage and syncs the theme-color meta. An inline script in `index.html` applies the saved theme before first paint.
+
+The dark theme is the light one inverted. `[data-theme='dark']` in `styles.css` redefines the palette, so the page goes navy while the **inverse surfaces** turn white: the header (`.header-surface`), the contact band and primary buttons. Inverse surfaces must use `bg-ink` + `text-on-ink` (and `ink-deep` / `ink-blue` for the header gradient), never literal `white` or navy.
+
+Use `dark:` utilities (custom variant) only for things tokens can't express:
+- the dark GitHub/LinkedIn SVGs: `dark:invert` on light backgrounds, `invert dark:invert-0` inside primary buttons;
+- logos flagged `invertOnDark` in `stack.data.ts`.
+
+Angular can't bind class names with a colon (`[class.dark:invert]` silently does nothing), so use a `[class]="cond ? 'dark:…' : ''"` string instead.
+
 `prefers-reduced-motion` disables all motion.
 
 The profile photo lives in `public/images/profile-{800,160}.webp` with a `.jpg` fallback. It was cropped once with sharp, which is not kept as a dependency.

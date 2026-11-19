@@ -41,7 +41,7 @@ import {
               class="absolute inset-x-0 bottom-0 h-0.5 origin-center scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
               aria-hidden="true"
             ></span>
-            <app-tech-icon [name]="tech.name" [icon]="tech.icon" [size]="56" />
+            <app-tech-icon [name]="tech.name" [icon]="tech.icon" [size]="56" [invertOnDark]="!!tech.invertOnDark" />
           </li>
         }
       </ul>
@@ -59,7 +59,13 @@ import {
               class="absolute inset-x-0 bottom-0 h-0.5 origin-center scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
               aria-hidden="true"
             ></span>
-            <app-tech-icon [name]="tech.name" [icon]="tech.icon" [size]="32" [compact]="true" />
+            <app-tech-icon
+              [name]="tech.name"
+              [icon]="tech.icon"
+              [size]="32"
+              [compact]="true"
+              [invertOnDark]="!!tech.invertOnDark"
+            />
           </li>
         }
       </ul>
