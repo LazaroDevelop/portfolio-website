@@ -26,10 +26,22 @@ export const PROFILE: Profile = {
     en: 'Backend engineer with 5 years of experience building enterprise systems with Java, Spring Boot, Hibernate, PostgreSQL and Oracle. I built the full backend of a Warehouse Management System and a Delivery Management System integrated with Openbravo ERP. I work with REST APIs, microservices, Kafka, Kafka Streams, SNS/SQS and Elasticsearch.',
   },
   metrics: [
-    { value: '5+', label: { es: 'años de experiencia', en: 'years of experience' } },
-    { value: '−70%', label: { es: 'tiempo de procesamiento', en: 'data processing time' } },
-    { value: '+50%', label: { es: 'rendimiento en legacy', en: 'legacy service performance' } },
-    { value: '8 → 21', label: { es: 'migración de Java', en: 'Java migration' } },
+    {
+      value: '5+',
+      label: { es: 'años de experiencia', en: 'years of experience' },
+      icon: 'briefcase-business',
+    },
+    {
+      value: '−70%',
+      label: { es: 'tiempo de procesamiento', en: 'data processing time' },
+      icon: 'zap',
+    },
+    {
+      value: '+50%',
+      label: { es: 'rendimiento en legacy', en: 'legacy service performance' },
+      icon: 'rocket',
+    },
+    { value: '8 → 21', label: { es: 'migración de Java', en: 'Java migration' }, icon: 'refresh' },
   ],
   github: 'https://github.com/LazaroDevelop',
   linkedin: 'https://www.linkedin.com/in/lazarogm13',

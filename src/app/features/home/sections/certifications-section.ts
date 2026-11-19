@@ -1,24 +1,30 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { LanguageService, LocalizePipe } from '../../../core/i18n';
 import { CertificationGroup } from '../../../core/models';
-import { ExternalLinkDirective, SectionHeaderComponent } from '../../../shared/ui';
+import {
+  ExternalLinkDirective,
+  IconComponent,
+  RevealDirective,
+  SectionHeaderComponent,
+} from '../../../shared/ui';
 
 @Component({
   selector: 'app-certifications-section',
-  imports: [LocalizePipe, ExternalLinkDirective, SectionHeaderComponent],
+  imports: [LocalizePipe, ExternalLinkDirective, IconComponent, RevealDirective, SectionHeaderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block border-t border-line bg-surface' },
   template: `
     <div class="container-editorial py-20 md:py-28">
       <app-section-header
         index="04"
+        icon="award"
         [label]="t().sections.certifications.label"
         [title]="t().sections.certifications.title"
       />
 
       <div class="mt-12 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
-        @for (group of groups(); track group.title.en) {
-          <section>
+        @for (group of groups(); track group.title.en; let i = $index) {
+          <section appReveal [revealDelay]="i * 100">
             <h3 class="border-b border-ink pb-3 type-label-md uppercase text-ink">{{ group.title | loc }}</h3>
             <ul>
               @for (cert of group.items; track cert.name) {
@@ -31,10 +37,15 @@ import { ExternalLinkDirective, SectionHeaderComponent } from '../../../shared/u
                     <a
                       appExternal
                       [href]="cert.url"
-                      class="shrink-0 type-label-sm uppercase text-muted transition-colors hover:text-accent"
+                      class="group flex shrink-0 items-center gap-1 type-label-sm uppercase text-muted transition-colors hover:text-accent"
                       [attr.aria-label]="t().sections.certifications.verify + ': ' + cert.name"
                     >
-                      {{ t().sections.certifications.verify }} ↗
+                      {{ t().sections.certifications.verify }}
+                      <app-icon
+                        name="arrow-up-right"
+                        [size]="12"
+                        class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      />
                     </a>
                   }
                 </li>

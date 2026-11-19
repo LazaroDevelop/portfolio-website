@@ -1,3 +1,7 @@
+import type { IconName } from '../../shared/ui/icon';
+
+export type { IconName };
+
 export type Lang = 'es' | 'en';
 
 /** Text available in every supported language. */
@@ -11,7 +15,11 @@ export interface ExternalLink {
 export interface Metric {
   value: string;
   label: Localized;
+  icon: IconName;
 }
+
+/** An experience bullet; `impact` marks measurable results (shown with a trend icon). */
+export type Highlight = Localized & { impact?: boolean };
 
 export interface Photo {
   /** Large square image (hero). */
@@ -63,7 +71,7 @@ export interface Experience {
   start: string;
   end: string;
   partTime?: boolean;
-  highlights: Localized[];
+  highlights: Highlight[];
   stack: string[];
 }
 

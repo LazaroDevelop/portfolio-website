@@ -5,11 +5,19 @@ import { Project } from '../../core/models';
 import { BadgeComponent } from './badge';
 import { CardComponent } from './card';
 import { ExternalLinkDirective } from './external-link';
+import { IconComponent } from './icon';
 
 /** Project summary card, reused by the home grid and the "next project" link. */
 @Component({
   selector: 'app-project-card',
-  imports: [RouterLink, LocalizePipe, BadgeComponent, CardComponent, ExternalLinkDirective],
+  imports: [
+    RouterLink,
+    LocalizePipe,
+    BadgeComponent,
+    CardComponent,
+    ExternalLinkDirective,
+    IconComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block h-full' },
   template: `
@@ -19,7 +27,10 @@ import { ExternalLinkDirective } from './external-link';
         <div class="flex items-center justify-between type-label-sm uppercase text-subtle">
           <span>P-{{ index() }}</span>
           @if (p.featured) {
-            <span class="text-accent">{{ t().sections.projects.featured }}</span>
+            <span class="flex items-center gap-1 text-accent">
+              <app-icon name="rocket" [size]="12" class="group-hover/card:animate-rocket" />
+              {{ t().sections.projects.featured }}
+            </span>
           }
         </div>
         <h3 class="mt-4 type-headline-sm text-ink">
@@ -43,9 +54,14 @@ import { ExternalLinkDirective } from './external-link';
         </a>
         <a
           [routerLink]="['/projects', p.slug]"
-          class="flex items-center gap-2 border-l border-well px-6 py-4 text-muted transition-colors hover:bg-canvas hover:text-ink md:px-8"
+          class="group/link flex items-center gap-2 border-l border-well px-6 py-4 text-muted transition-colors hover:bg-canvas hover:text-ink md:px-8"
         >
-          {{ t().sections.projects.caseStudy }} <span aria-hidden="true">→</span>
+          {{ t().sections.projects.caseStudy }}
+          <app-icon
+            name="arrow-right"
+            [size]="14"
+            class="transition-transform duration-300 group-hover/card:translate-x-1 group-hover/link:text-accent"
+          />
         </a>
       </div>
     </app-card>

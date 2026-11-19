@@ -9,6 +9,7 @@ import {
   BadgeComponent,
   ButtonDirective,
   ExternalLinkDirective,
+  IconComponent,
   ProjectCardComponent,
 } from '../../shared/ui';
 
@@ -21,6 +22,7 @@ import {
     BadgeComponent,
     ButtonDirective,
     ExternalLinkDirective,
+    IconComponent,
     ProjectCardComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,20 +30,30 @@ import {
     @if (state(); as s) {
       @if (s.project; as p) {
         <article>
-          <header class="border-b border-line">
+          <header class="bg-dots-accent overflow-hidden border-b border-line">
             <div class="container-editorial py-12 md:py-20">
               <a
                 routerLink="/"
                 fragment="projects"
-                class="type-label-md uppercase text-muted transition-colors hover:text-ink"
+                class="group inline-flex items-center gap-2 type-label-md uppercase text-muted transition-colors hover:text-ink"
               >
-                ← {{ t().project.back }}
+                <app-icon
+                  name="arrow-right"
+                  [size]="14"
+                  class="rotate-180 transition-transform group-hover:-translate-x-1"
+                />
+                {{ t().project.back }}
               </a>
-              <p class="mt-10 type-label-md uppercase text-subtle">
+              <p class="mt-10 flex items-center gap-2 type-label-md uppercase text-subtle animate-fade-up">
+                <app-icon name="folder-git" [size]="14" class="text-accent" />
                 <span class="text-accent">P-{{ number() }}</span> / {{ p.stack[0] }}
               </p>
-              <h1 class="mt-4 max-w-4xl type-display text-ink">{{ p.name | loc }}</h1>
-              <p class="mt-6 max-w-2xl type-body-lg text-muted">{{ p.tagline | loc }}</p>
+              <h1 class="mt-4 max-w-4xl type-display text-ink animate-fade-up [animation-delay:100ms]">
+                {{ p.name | loc }}
+              </h1>
+              <p class="mt-6 max-w-2xl type-body-lg text-muted animate-fade-up [animation-delay:200ms]">
+                {{ p.tagline | loc }}
+              </p>
             </div>
           </header>
 

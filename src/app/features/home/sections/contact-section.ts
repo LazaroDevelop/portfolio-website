@@ -1,18 +1,26 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { LanguageService } from '../../../core/i18n';
 import { Profile } from '../../../core/models';
-import { ButtonDirective, ExternalLinkDirective } from '../../../shared/ui';
+import {
+  ButtonDirective,
+  ExternalLinkDirective,
+  IconComponent,
+  RevealDirective,
+} from '../../../shared/ui';
 
 @Component({
   selector: 'app-contact-section',
-  imports: [ButtonDirective, ExternalLinkDirective],
+  imports: [ButtonDirective, ExternalLinkDirective, IconComponent, RevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block bg-ink text-white' },
+  host: { class: 'bg-dots-accent block overflow-hidden bg-ink text-white' },
   template: `
     @let p = profile();
-    <div class="container-editorial grid gap-10 py-20 md:py-28 lg:grid-cols-12">
+    <div appReveal class="container-editorial grid gap-10 py-20 md:py-28 lg:grid-cols-12">
       <div class="lg:col-span-8">
         <div class="flex items-center gap-3 type-label-md uppercase text-control">
+          <span class="grid size-7 place-items-center rounded-xs border border-accent/40 bg-accent/15 text-accent">
+            <app-icon name="send" [size]="15" class="animate-float" />
+          </span>
           <span class="text-accent">05</span>
           <span class="h-px w-8 bg-ink-soft" aria-hidden="true"></span>
           <span>{{ t().sections.contact.label }}</span>

@@ -4,13 +4,22 @@ import { Project } from '../../../core/models';
 import {
   ButtonDirective,
   ExternalLinkDirective,
+  IconComponent,
   ProjectCardComponent,
+  RevealDirective,
   SectionHeaderComponent,
 } from '../../../shared/ui';
 
 @Component({
   selector: 'app-projects-section',
-  imports: [ButtonDirective, ExternalLinkDirective, ProjectCardComponent, SectionHeaderComponent],
+  imports: [
+    ButtonDirective,
+    ExternalLinkDirective,
+    IconComponent,
+    ProjectCardComponent,
+    RevealDirective,
+    SectionHeaderComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block border-t border-line' },
   template: `
@@ -18,18 +27,26 @@ import {
       <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <app-section-header
           index="03"
+          icon="folder-git"
           [label]="t().sections.projects.label"
           [title]="t().sections.projects.title"
           [lead]="t().sections.projects.lead"
         />
-        <a appButton variant="outline" appExternal [href]="githubUrl()" class="shrink-0">
-          {{ t().sections.projects.more }} <span aria-hidden="true">↗</span>
+        <a appButton variant="outline" appExternal [href]="githubUrl()" class="group shrink-0">
+          <img src="icons/github.svg" alt="" class="size-4" />
+          {{ t().sections.projects.more }}
+          <app-icon
+            name="arrow-up-right"
+            class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          />
         </a>
       </div>
 
       <ul class="mt-12 grid gap-6 md:grid-cols-2">
         @for (project of projects(); track project.slug; let i = $index) {
-          <li><app-project-card [project]="project" [index]="(i + 1).toString().padStart(2, '0')" /></li>
+          <li appReveal [revealDelay]="(i % 2) * 120">
+            <app-project-card [project]="project" [index]="(i + 1).toString().padStart(2, '0')" />
+          </li>
         }
       </ul>
     </div>

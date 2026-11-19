@@ -1,24 +1,37 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { LanguageService, LocalizePipe, MonthYearPipe } from '../../../core/i18n';
 import { Experience } from '../../../core/models';
-import { BadgeComponent, SectionHeaderComponent } from '../../../shared/ui';
+import {
+  BadgeComponent,
+  IconComponent,
+  RevealDirective,
+  SectionHeaderComponent,
+} from '../../../shared/ui';
 
 @Component({
   selector: 'app-experience-section',
-  imports: [LocalizePipe, MonthYearPipe, BadgeComponent, SectionHeaderComponent],
+  imports: [
+    LocalizePipe,
+    MonthYearPipe,
+    BadgeComponent,
+    IconComponent,
+    RevealDirective,
+    SectionHeaderComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block border-t border-line bg-surface' },
   template: `
     <div class="container-editorial py-20 md:py-28">
       <app-section-header
         index="02"
+        icon="briefcase"
         [label]="t().sections.experience.label"
         [title]="t().sections.experience.title"
       />
 
       <ol class="mt-12 border-t border-line">
         @for (job of experience(); track job.company) {
-          <li class="grid gap-6 border-b border-line py-10 lg:grid-cols-12 lg:gap-10">
+          <li appReveal class="grid gap-6 border-b border-line py-10 lg:grid-cols-12 lg:gap-10">
             <div class="lg:col-span-4">
               <p class="type-label-md uppercase text-subtle">
                 {{ job.start | monthYear }} — {{ job.end | monthYear }}
@@ -33,8 +46,12 @@ import { BadgeComponent, SectionHeaderComponent } from '../../../shared/ui';
               <p class="type-label-md uppercase text-accent">{{ job.role | loc }}</p>
               <ul class="mt-4 space-y-3">
                 @for (item of job.highlights; track $index) {
-                  <li class="relative pl-5 type-body-md text-muted">
-                    <span class="absolute left-0 top-[11px] h-px w-2.5 bg-line-strong" aria-hidden="true"></span>
+                  <li class="relative pl-6 type-body-md" [class]="item.impact ? 'text-ink' : 'text-muted'">
+                    @if (item.impact) {
+                      <app-icon name="trending-up" [size]="15" class="absolute left-0 top-[5px] text-accent" />
+                    } @else {
+                      <span class="absolute left-0 top-[12px] h-px w-3 bg-line-strong" aria-hidden="true"></span>
+                    }
                     {{ item | loc }}
                   </li>
                 }

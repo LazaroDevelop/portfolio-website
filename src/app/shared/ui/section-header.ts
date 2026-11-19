@@ -1,12 +1,23 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { IconComponent, IconName } from './icon';
+import { RevealDirective } from './reveal.directive';
 
-/** Section heading: mono index + label above a Space Grotesk title, closed by a hairline rule. */
+/** Section heading: icon + mono index + label above a Space Grotesk title, revealed on scroll. */
 @Component({
   selector: 'app-section-header',
+  imports: [IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  hostDirectives: [RevealDirective],
   host: { class: 'block' },
   template: `
     <div class="flex items-center gap-3 type-label-md uppercase text-subtle">
+      @if (icon(); as icon) {
+        <span
+          class="grid size-7 place-items-center rounded-xs border border-accent-line bg-accent-wash text-accent"
+        >
+          <app-icon [name]="icon" [size]="15" />
+        </span>
+      }
       <span class="text-accent">{{ index() }}</span>
       <span class="h-px w-8 bg-line-strong" aria-hidden="true"></span>
       <span>{{ label() }}</span>
@@ -22,4 +33,5 @@ export class SectionHeaderComponent {
   readonly label = input.required<string>();
   readonly title = input.required<string>();
   readonly lead = input<string>();
+  readonly icon = input<IconName>();
 }

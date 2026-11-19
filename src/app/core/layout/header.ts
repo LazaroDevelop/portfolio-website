@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { AvatarComponent, ButtonDirective, ExternalLinkDirective } from '../../shared/ui';
@@ -12,7 +12,11 @@ type NavKey = 'stack' | 'experience' | 'projects' | 'certifications' | 'contact'
   selector: 'app-header',
   imports: [RouterLink, AvatarComponent, ButtonDirective, ExternalLinkDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'sticky top-0 z-40 block border-b border-line bg-canvas/85 backdrop-blur-md' },
+  host: {
+    class: 'sticky top-0 z-40 block border-b border-line bg-canvas/85 backdrop-blur-md transition-shadow duration-300',
+    '[class.shadow-card-hover]': 'scrolled()',
+    '(window:scroll)': 'onScroll()',
+  },
   template: `
     <a
       href="#main"
@@ -72,4 +76,9 @@ export class HeaderComponent {
   protected readonly profile = toSignal(inject(CONTENT_REPOSITORY).getProfile());
   protected readonly navKeys: NavKey[] = ['stack', 'experience', 'projects', 'certifications', 'contact'];
   protected readonly langs: Lang[] = ['es', 'en'];
+  protected readonly scrolled = signal(false);
+
+  protected onScroll(): void {
+    this.scrolled.set(window.scrollY > 8);
+  }
 }
