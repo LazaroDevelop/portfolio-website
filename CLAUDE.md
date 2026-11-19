@@ -2,22 +2,53 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository state
+## Project
 
-This is a personal portfolio website that hasn't been built yet. The only file so far is `DESIGN.md`. There is no framework, package manager, build, lint or test setup. Once a stack is chosen, add its commands here.
+Static personal portfolio for Lazaro Guerra (Java backend engineer). Its main purpose is to send visitors to GitHub and the projects there. Built with Angular 20 (standalone, signals, zoneless, OnPush) and Tailwind CSS v4. There is no backend. Content is bilingual (ES/EN).
 
-## Design system (`DESIGN.md`)
+Requires Node ≥ 20.19 (Node 22 is installed). Node 26 is not supported by Angular 20.
 
-`DESIGN.md` sets the visual language ("Technical Editorial"). All UI work should follow it. It has two parts:
+## Commands
 
-- **YAML front matter**: design tokens for `colors` (Material 3-style role names such as `surface`, `on-surface`, `primary-container`), `typography`, `rounded` and `spacing`. If a token-driven setup is used (e.g. Tailwind theme, CSS custom properties), generate it from these.
-- **Prose sections**: brand intent, layout grid, elevation, shapes and component specs (buttons, telemetry badges, cards, inputs, code blocks, selection controls).
+```bash
+npm start                 # ng serve on http://localhost:4200
+npm run build             # production build → dist/portfolio-website
+npm run lint              # angular-eslint
+npm run test:ci           # Karma + Jasmine, single run in ChromeHeadless
+npx ng test --watch=false --browsers=ChromeHeadless --include src/app/core/i18n/language.service.spec.ts   # one spec
+```
 
-Key rules from the prose:
-- Fonts: **Space Grotesk** for headlines, **Geist** for body text (line height 1.7–1.8), **Space Mono** for labels and metadata (uppercase for statuses).
-- Use the red accent sparingly. It is only for live pings, active chips, thin highlight rules and featured-card top borders, never for large surfaces.
-- Show depth with 1px hairline borders, tonal contrast and very faint shadows rather than heavy drop shadows. Exact shadow values are in "Elevation & Depth".
-- Grid: 12 columns on desktop (max width 1320px, 40px gutters, 64px margins, 4-column metadata sidebar + 8-column reading rail), 8 columns on tablet (768–1199px), 4 columns on mobile (<768px).
-- Corner radius: 4px for base components, 8px for code and asset frames, 2px or square for badges.
+## Git workflow
 
-**Known inconsistency:** the hex values in the prose (Tailwind slate/red: `#f8fafc`, `#0f172a`, `#dc2626`, `#e2e8f0`…) do not match the front-matter tokens (`surface: #f7f9fb`, `primary: #000000`, `secondary: #bb0112`…). Ask the user which source wins before setting up theme tokens.
+Use git flow (AVH). Run `git flow feature start <name>` before each piece of work. Finish it with `git flow feature finish -k --no-ff <name>`. **Keep feature branches; never delete them.** `develop` is the integration branch and `main` is for releases.
+
+## Architecture (`src/app`)
+
+- `content/*.data.ts`: **all real portfolio content** (profile, stack, experience, projects, certifications) as typed data. Edit these to change what the site says. Every user-facing string is a `Localized` (`{ es, en }`).
+- `core/models`: content interfaces (`Profile`, `Project`, `Experience`…).
+- `core/data`: the `CONTENT_REPOSITORY` token and its `ContentRepository` interface, implemented by `StaticContentRepository` (bound in `app.config.ts`). Pages and layout read content **only** through this token (`toSignal(repo.getX())`). To add a backend later, write an HTTP implementation and swap the provider.
+- `core/i18n`:
+  - `LanguageService` holds the `lang` signal, persisted to localStorage, and keeps `<html lang>` in sync.
+  - `t()` returns the typed UI dictionary. `dictionaries/es.ts` defines its shape and `en.ts` must match.
+  - The `loc` pipe resolves `Localized` content and `monthYear` formats `YYYY-MM` dates. Both pipes are impure on purpose so they re-render when the language changes.
+- `core/layout`: header (nav anchors and ES/EN toggle), footer, and `PageMetaService` (title and description per page and language).
+- `shared/ui`: presentational primitives with no data access:
+  - the `appButton` directive (primary/outline/critical/inverse) and the `appExternal` directive (target=_blank + noopener)
+  - `app-badge`, `app-card`, `app-section-header`, `app-tech-icon` and `app-project-card`
+- `features/<name>/`: lazy-loaded feature "modules". Each exposes a `*.routes.ts` used by `app.routes.ts`.
+  - `home`: one page made of section components in `sections/`. Section `id`s (`stack`, `experience`, `projects`, `certifications`, `contact`) are the header's anchor targets.
+  - `projects`: `/projects/:slug` case study. The slug is bound via `withComponentInputBinding` and an unknown slug redirects to `/`.
+
+## Design system
+
+`DESIGN.md` (exported from Stitch) is the visual spec. **The palette comes from the DESIGN.md prose values** (slate/white canvas, navy `#0f172a` ink, red `#dc2626` accent), not the YAML front-matter colors. Tokens live in `src/styles.css`:
+
+- `@theme` colors: `canvas`, `surface`, `well`, `ink`, `muted`, `subtle`, `line`, `line-strong`, `accent`…
+- fonts: `display` = Space Grotesk, `sans` = Geist, `mono` = Space Mono. All are self-hosted via `@fontsource`.
+- shadows: `shadow-card` and `shadow-card-hover`
+- type utilities: `type-display`, `type-headline-*`, `type-body-*` and `type-label-*`
+- the `container-editorial` layout utility
+
+Use the red accent sparingly: status dots, small labels and the 2px top rule on featured cards. Never use it on large surfaces.
+
+Technology logos are the official devicon SVGs, copied into `public/icons/` (the devicon package is not a dependency). Reference them by file name without `.svg`, e.g. `java-original`.
