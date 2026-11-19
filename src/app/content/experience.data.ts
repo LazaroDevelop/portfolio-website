@@ -39,13 +39,13 @@ export const EXPERIENCE: Experience[] = [
     end: '2025-05',
     highlights: [
       {
-        es: 'Reduje hasta un 70 % el tiempo de procesamiento con concurrencia en pipelines Oracle/PostgreSQL → Kafka y Elasticsearch.',
-        en: 'Cut data processing time by up to 70% by adding concurrency to Oracle/PostgreSQL → Kafka and Elasticsearch pipelines.',
+        es: 'Hice multiinstancia el descargador de datos que escribe en Elasticsearch y Kafka: cada fuente de datos pasó a descargarse entre 3 y 4 veces más rápido.',
+        en: 'Made the data downloader that writes to Elasticsearch and Kafka multi-instance, so each data source now downloads 3–4× faster.',
         impact: true,
       },
       {
-        es: 'Mejoré cerca de un 50 % el rendimiento de servicios legacy mediante refactorización.',
-        en: 'Improved legacy service performance by about 50% through refactoring.',
+        es: 'Mejoré alrededor de un 20 % el rendimiento de servicios legacy mediante refactorización.',
+        en: 'Improved legacy service performance by around 20% through refactoring.',
         impact: true,
       },
       {
