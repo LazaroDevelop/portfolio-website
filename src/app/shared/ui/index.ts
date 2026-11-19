@@ -5,6 +5,7 @@ export * from './card';
 export * from './count-up.directive';
 export * from './external-link';
 export * from './icon';
+export * from './network-background';
 export * from './project-card';
 export * from './reveal.directive';
 export * from './section-header';

@@ -8,6 +8,7 @@ import {
   CountUpDirective,
   ExternalLinkDirective,
   IconComponent,
+  NetworkBackgroundComponent,
 } from '../../../shared/ui';
 
 @Component({
@@ -20,11 +21,13 @@ import {
     CountUpDirective,
     ExternalLinkDirective,
     IconComponent,
+    NetworkBackgroundComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'bg-dots-accent block overflow-hidden' },
+  host: { class: 'relative isolate block overflow-hidden' },
   template: `
     @let p = profile();
+    <app-network-bg />
     <div class="container-editorial grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-8">
         <app-badge variant="active" class="animate-fade-up">{{ t().hero.status }}</app-badge>
