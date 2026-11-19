@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 @Component({
   selector: 'app-tech-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'flex flex-col items-center gap-3' },
+  host: { class: 'flex flex-col items-center gap-2.5' },
   template: `
     <img
       [src]="src()"
@@ -17,7 +17,12 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
       loading="lazy"
       decoding="async"
     />
-    <span class="type-label-md uppercase text-muted">{{ name() }}</span>
+    <span
+      class="text-center uppercase text-muted transition-colors group-hover:text-ink"
+      [class]="compact() ? 'type-label-sm' : 'type-label-md'"
+    >
+      {{ name() }}
+    </span>
   `,
 })
 export class TechIconComponent {
@@ -25,5 +30,7 @@ export class TechIconComponent {
   /** File name in public/icons without extension, e.g. `java-original`. */
   readonly icon = input.required<string>();
   readonly size = input(48);
+  /** Smaller label, for the secondary tiles. */
+  readonly compact = input(false);
   protected readonly src = computed(() => `icons/${this.icon()}.svg`);
 }

@@ -12,8 +12,12 @@ export const STACK: Stack = {
   secondary: [
     { name: 'Elasticsearch', icon: 'elasticsearch-original' },
     { name: 'Terraform', icon: 'terraform-original' },
+    { name: 'NestJS', icon: 'nestjs-original' },
     { name: 'Angular', icon: 'angular-original' },
     { name: 'React', icon: 'react-original' },
+    { name: 'n8n', icon: 'n8n-original' },
+    { name: 'Python', icon: 'python-original' },
+    { name: 'Claude', icon: 'claude-original' },
   ],
   groups: [
     {

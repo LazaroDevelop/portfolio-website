@@ -46,18 +46,20 @@ import {
         }
       </ul>
 
-      <ul class="mt-6 flex flex-wrap items-center gap-x-8 gap-y-5">
-        @for (tech of s.secondary; track tech.name) {
-          <li class="group flex items-center gap-2">
-            <img
-              [src]="'icons/' + tech.icon + '.svg'"
-              alt=""
-              class="size-6 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-115"
-              loading="lazy"
-            />
-            <span class="type-label-md uppercase text-muted transition-colors group-hover:text-ink">
-              {{ tech.name }}
-            </span>
+      <ul
+        class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-4 lg:grid-cols-8"
+      >
+        @for (tech of s.secondary; track tech.name; let i = $index) {
+          <li
+            appReveal
+            [revealDelay]="(i % 8) * 60"
+            class="group relative bg-surface px-3 py-5 transition-colors duration-300 hover:bg-canvas"
+          >
+            <span
+              class="absolute inset-x-0 bottom-0 h-0.5 origin-center scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
+              aria-hidden="true"
+            ></span>
+            <app-tech-icon [name]="tech.name" [icon]="tech.icon" [size]="32" [compact]="true" />
           </li>
         }
       </ul>
