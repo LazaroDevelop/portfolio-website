@@ -6,11 +6,13 @@ import {
   IconComponent,
   RevealDirective,
   SectionHeaderComponent,
+  NetworkBackgroundComponent,
 } from '../../../shared/ui';
 
 @Component({
   selector: 'app-experience-section',
   imports: [
+    NetworkBackgroundComponent,
     LocalizePipe,
     MonthYearPipe,
     BadgeComponent,
@@ -19,8 +21,9 @@ import {
     SectionHeaderComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block border-t border-line bg-surface' },
+  host: { class: 'relative isolate block overflow-hidden border-t border-line bg-surface' },
   template: `
+    <app-network-bg color="59, 130, 246" />
     <div class="container-editorial py-20 md:py-28">
       <app-section-header
         index="02"
