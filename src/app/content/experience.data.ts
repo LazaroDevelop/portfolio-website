@@ -41,10 +41,12 @@ export const EXPERIENCE: Experience[] = [
       {
         es: 'Reduje hasta un 70 % el tiempo de procesamiento con concurrencia en pipelines Oracle/PostgreSQL → Kafka y Elasticsearch.',
         en: 'Cut data processing time by up to 70% by adding concurrency to Oracle/PostgreSQL → Kafka and Elasticsearch pipelines.',
+        impact: true,
       },
       {
         es: 'Mejoré cerca de un 50 % el rendimiento de servicios legacy mediante refactorización.',
         en: 'Improved legacy service performance by about 50% through refactoring.',
+        impact: true,
       },
       {
         es: 'Migré microservicios de Java 8 / Spring Boot 2 a Java 21 / Spring Boot 3.',
@@ -76,6 +78,7 @@ export const EXPERIENCE: Experience[] = [
       {
         es: 'Optimicé cálculos financieros heredados y resolví más de 15 incidencias de producción.',
         en: 'Optimized legacy financial calculations and resolved 15+ production incidents.',
+        impact: true,
       },
     ],
     stack: ['Java', 'Spring MVC', 'Oracle PL/SQL', 'Tomcat', 'Maven'],
@@ -110,6 +113,7 @@ export const EXPERIENCE: Experience[] = [
       {
         es: 'Funcionalidades backend con Spring Boot y Spring Cloud, cerca de un 40 % más rápidas tras optimizarlas.',
         en: 'Backend features with Spring Boot and Spring Cloud, running about 40% faster after optimization.',
+        impact: true,
       },
       {
         es: 'Generación y firma de PDF, exportación a Excel y módulos de búsqueda en Angular Material.',

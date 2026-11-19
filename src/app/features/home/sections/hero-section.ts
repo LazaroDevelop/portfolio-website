@@ -2,50 +2,69 @@ import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core
 import { RouterLink } from '@angular/router';
 import { LanguageService, LocalizePipe } from '../../../core/i18n';
 import { Profile } from '../../../core/models';
-import { BadgeComponent, ButtonDirective, ExternalLinkDirective } from '../../../shared/ui';
+import {
+  BadgeComponent,
+  ButtonDirective,
+  CountUpDirective,
+  ExternalLinkDirective,
+  IconComponent,
+} from '../../../shared/ui';
 
 @Component({
   selector: 'app-hero-section',
-  imports: [RouterLink, LocalizePipe, BadgeComponent, ButtonDirective, ExternalLinkDirective],
+  imports: [
+    RouterLink,
+    LocalizePipe,
+    BadgeComponent,
+    ButtonDirective,
+    CountUpDirective,
+    ExternalLinkDirective,
+    IconComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'relative block overflow-hidden' },
-  styles: `
-    .hero-grid {
-      background-image:
-        linear-gradient(to right, var(--color-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse at 70% 30%, black 10%, transparent 70%);
-    }
-  `,
+  host: { class: 'bg-dots-accent block overflow-hidden' },
   template: `
-    <div class="hero-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
     @let p = profile();
-    <div class="container-editorial relative grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-10">
+    <div class="container-editorial grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-8">
-        <app-badge variant="active">{{ t().hero.status }}</app-badge>
-        <p class="mt-8 type-label-md uppercase text-subtle">
-          {{ p.role | loc }} <span class="text-accent">/</span> {{ p.location }}
+        <app-badge variant="active" class="animate-fade-up">{{ t().hero.status }}</app-badge>
+        <p
+          class="mt-8 flex items-center gap-2 type-label-md uppercase text-subtle animate-fade-up [animation-delay:80ms]"
+        >
+          {{ p.role | loc }} <span class="text-accent">/</span>
+          <app-icon name="map-pin" [size]="13" class="text-accent" />
+          {{ p.location }}
         </p>
-        <h1 class="mt-4 max-w-4xl type-display text-ink">{{ p.headline | loc }}</h1>
-        <p class="mt-6 max-w-2xl type-body-lg text-muted">{{ p.summary | loc }}</p>
-        <div class="mt-10 flex flex-wrap gap-3">
-          <a appButton appExternal [href]="p.github">
+        <h1 class="mt-4 max-w-4xl type-display text-ink animate-fade-up [animation-delay:160ms]">
+          {{ p.headline | loc }}
+        </h1>
+        <p class="mt-6 max-w-2xl type-body-lg text-muted animate-fade-up [animation-delay:240ms]">
+          {{ p.summary | loc }}
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3 animate-fade-up [animation-delay:320ms]">
+          <a appButton appExternal [href]="p.github" class="group">
             <img src="icons/github.svg" alt="" class="size-4 invert" />
             {{ t().hero.ctaGithub }}
+            <app-icon
+              name="arrow-up-right"
+              class="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
           <a appButton variant="outline" appExternal [href]="p.linkedin">
             <img src="icons/linkedin.svg" alt="" class="size-4" />
             {{ t().hero.ctaLinkedin }}
           </a>
-          <a appButton variant="outline" routerLink="/" fragment="projects">
-            {{ t().hero.ctaProjects }} <span aria-hidden="true">↓</span>
+          <a appButton variant="outline" routerLink="/" fragment="projects" class="group">
+            {{ t().hero.ctaProjects }}
+            <app-icon name="arrow-right" class="rotate-90 transition-transform group-hover:translate-y-0.5" />
           </a>
         </div>
       </div>
 
-      <aside class="lg:col-span-4 lg:self-end">
-        <figure class="relative mb-4 overflow-hidden rounded-sm border border-line bg-surface p-2 shadow-card">
+      <aside class="animate-fade-up [animation-delay:400ms] lg:col-span-4 lg:self-end">
+        <figure
+          class="relative mx-auto mb-4 max-w-sm animate-float overflow-hidden rounded-sm border border-line bg-surface p-2 shadow-card-hover lg:max-w-none"
+        >
           <picture>
             <source [srcset]="p.photo.src" type="image/webp" />
             <img
@@ -61,18 +80,31 @@ import { BadgeComponent, ButtonDirective, ExternalLinkDirective } from '../../..
             class="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-2 rounded-xs bg-surface/90 px-3 py-2 backdrop-blur"
           >
             <span class="type-label-sm uppercase text-ink">{{ p.name }}</span>
-            <span class="type-label-sm uppercase text-subtle">MVD · UY</span>
+            <span class="flex items-center gap-1 type-label-sm uppercase text-subtle">
+              <app-icon name="map-pin" [size]="11" class="text-accent" /> MVD · UY
+            </span>
           </figcaption>
         </figure>
+
         <dl class="grid grid-cols-2 overflow-hidden rounded-sm border border-line bg-surface shadow-card">
           @for (metric of p.metrics; track metric.value; let i = $index) {
             <div
-              class="flex flex-col gap-1 border-line p-5"
+              class="group flex flex-col gap-1 border-line p-5 transition-colors hover:bg-canvas"
               [class.border-r]="i % 2 === 0"
               [class.border-t]="i > 1"
             >
               <dt class="order-2 type-label-sm uppercase text-subtle">{{ metric.label | loc }}</dt>
-              <dd class="order-1 type-headline-md text-ink">{{ metric.value }}</dd>
+              <dd class="order-1 flex items-start justify-between gap-2">
+                <span class="type-headline-md tabular-nums text-ink" [appCountUp]="metric.value">{{
+                  metric.value
+                }}</span>
+                <app-icon
+                  [name]="metric.icon"
+                  [size]="18"
+                  class="mt-1 text-accent transition-transform"
+                  [class]="metric.icon === 'rocket' ? 'group-hover:animate-rocket' : 'group-hover:scale-125'"
+                />
+              </dd>
             </div>
           }
         </dl>

@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
       [alt]="name() + ' logo'"
       [width]="size()"
       [height]="size()"
-      class="object-contain"
+      class="object-contain transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-115"
       [style.width.px]="size()"
       [style.height.px]="size()"
       loading="lazy"
