@@ -8,6 +8,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Apply the saved theme before first paint so dark mode never flashes light (see ThemeService).
+    try {
+      if (localStorage.getItem('portfolio.theme') === 'dark') {
+        document.documentElement.dataset.theme = 'dark';
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
   <app-root></app-root>

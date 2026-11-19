@@ -50,6 +50,8 @@ export interface Tech {
   name: string;
   /** File name in public/icons without extension. */
   icon: string;
+  /** Dark logo (black text/marks) that needs inverting on the dark theme. */
+  invertOnDark?: boolean;
 }
 
 export interface StackGroup {

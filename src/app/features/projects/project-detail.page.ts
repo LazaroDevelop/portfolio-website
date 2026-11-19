@@ -79,12 +79,12 @@ import {
                   </h2>
                   <div class="mt-4 flex flex-col items-start gap-3">
                     <a appButton appExternal [href]="p.repoUrl">
-                      <img src="icons/github.svg" alt="" class="size-4 invert" />
+                      <img src="icons/github.svg" alt="" class="size-4 invert dark:invert-0" />
                       {{ t().project.repo }}
                     </a>
                     @for (link of p.extraLinks ?? []; track link.url) {
                       <a appButton variant="outline" appExternal [href]="link.url">
-                        <img src="icons/github.svg" alt="" class="size-4" />
+                        <img src="icons/github.svg" alt="" class="size-4 dark:invert" />
                         {{ link.label | loc }}
                       </a>
                     }

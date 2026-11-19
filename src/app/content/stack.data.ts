@@ -4,9 +4,9 @@ export const STACK: Stack = {
   primary: [
     { name: 'Java', icon: 'java-original' },
     { name: 'Spring Boot', icon: 'spring-original' },
-    { name: 'Apache Kafka', icon: 'apachekafka-original' },
+    { name: 'Apache Kafka', icon: 'apachekafka-original', invertOnDark: true },
     { name: 'Docker', icon: 'docker-original' },
-    { name: 'AWS', icon: 'amazonwebservices-original' },
+    { name: 'AWS', icon: 'amazonwebservices-original', invertOnDark: true },
     { name: 'PostgreSQL', icon: 'postgresql-original' },
   ],
   secondary: [
